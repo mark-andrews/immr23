@@ -81,3 +81,55 @@ ranef(M_5)
 # Intraclass correlation coefficient ICC
 VarCorr(M_5)
 4.7125 ^ 2 / (4.7125 ^ 2 + 1.0525 ^ 2)
+
+# Multilevel linear models ------------------------------------------------
+
+# scatterplot
+ggplot(sleepstudy,
+       aes(x = Days, y = Reaction)
+) + geom_point()
+
+# scatterplot; one per subject
+ggplot(sleepstudy,
+       aes(x = Days, y = Reaction)
+) + geom_point() + 
+  facet_wrap(~Subject) +
+  stat_smooth(method = 'lm')
+
+
+# simple linear regression with this data
+# lm(Reaction ~ 1 + Days, data = sleepstudy)
+
+M_6 <- lmer(Reaction ~ 1 + Days + (1 + Days | Subject), 
+            data = sleepstudy )
+summary(M_6)
+confint(M_6) # confidence interval on parameters
+
+coef(M_6)
+ranef(M_6)
+
+M_6a <- lmer(Reaction ~ Days + ( Days | Subject), 
+            data = sleepstudy )
+
+# Varying intercept only multilevel linear models
+
+M_7 <- lmer(Reaction ~ 1 + Days + (1 | Subject), 
+            data = sleepstudy )
+
+
+# Varying slope only multilevel linear models
+M_8 <- lmer(Reaction ~ 1 + Days + ( 0 + Days | Subject), 
+            data = sleepstudy )
+
+
+# Varying slope and varying intercept, but NO correlation
+
+
+M_9 <- lmer(Reaction ~ 1 + Days + (1 | Subject) + ( 0 + Days | Subject), 
+            data = sleepstudy )
+
+summary(M_9)
+
+
+M_10 <- lmer(Reaction ~ 1 + Days + (1 + Days || Subject), 
+            data = sleepstudy )
