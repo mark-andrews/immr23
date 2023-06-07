@@ -39,3 +39,45 @@ summary(M_3)
 
 # probability of tumour in the average batch
 plogis(fixef(M_3))
+
+# probability of tumour 2 standard deviations below mean
+plogis(-1.94 - 2 * 0.66)
+
+# probability of tumour 2 standard deviations above mean
+plogis(-1.94 + 2 * 0.66)
+
+# get random effects
+ranef(M_3)
+
+# the estimated effect for batch 1
+plogis(fixef(M_3) - 0.6298 )
+
+coef(M_3)
+
+
+
+
+
+# Normal random effects models --------------------------------------------
+
+alcohol_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/immr23/main/data/alcohol.csv")
+
+alcohol_df_russia <- filter(alcohol_df, country == 'Russia')
+
+M_4 <- lm(alcohol ~ 1, data = alcohol_df_russia)
+coef(M_4)
+sigma(M_4)
+
+M_5 <- lmer(alcohol ~ 1 + (1|country), data = alcohol_df)
+summary(M_5)
+
+# country specific means
+coef(M_5)
+
+# random effects; random offsets from mean
+ranef(M_5)
+
+
+# Intraclass correlation coefficient ICC
+VarCorr(M_5)
+4.7125 ^ 2 / (4.7125 ^ 2 + 1.0525 ^ 2)
