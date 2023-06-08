@@ -10,5 +10,5 @@ The video recordings are available on Vimeo.
 
 * [Session 1](https://vimeo.com/834366920):  
 * [Session 2](https://vimeo.com/834422203): 
-* Session 3:
+* [Session 3](https://vimeo.com/834558456):
 

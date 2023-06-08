@@ -150,3 +150,24 @@ blp_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/immr23/main/d
 blp_df <- mutate(blp_df, freq2 = as.numeric(scale(freq)))
 M_15 <- lmer(rt ~ freq2 + (freq2|participant) + (1|spelling), 
              data = blp_df)
+
+
+
+# Bayesian models ---------------------------------------------------------
+
+M_16 <- lm(Reaction ~ Days, data = sleepstudy)
+summary(M_16)$coefficients
+confint(M_16)
+sigma(M_16)
+
+library(brms)
+
+M_17 <- brm(Reaction ~ Days, data = sleepstudy)
+M_17
+
+prior_summary(M_17)
+
+
+M_18 <- brm(Reaction ~ Days + (Days|Subject), 
+            cores = 4,
+            data = sleepstudy)
