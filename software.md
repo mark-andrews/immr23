@@ -180,3 +180,7 @@ M <- brm(x ~ 1, data = data_df)
 
 And all was well.
 
+
+## A possible fallback
+
+[![Binder](https://notebooks.gesis.org/binder/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/mark-andrews/intro_bda_qub/HEAD?urlpath=rstudio)
