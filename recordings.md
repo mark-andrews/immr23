@@ -8,7 +8,7 @@ The video recordings are available on Vimeo.
 
 # Day 2
 
-* Session 1:  
+* [Session 1](https://vimeo.com/834366920):  
 * Session 2: 
 * Session 3:
 
