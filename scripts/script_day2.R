@@ -107,3 +107,46 @@ deviance(M_vivs) - deviance(M_vivsc)
 anova(M_vivs, M_vivsc)
 
 anova(M_vi, M_vivs) 
+anova(M_vs, M_vivs) 
+
+# Nested groups -----------------------------------------------------------
+
+classroom_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/immr23/main/data/classroom.csv")
+
+
+ggplot(classroom_df,
+       aes(x = ses, y = mathscore)
+) + geom_point() +
+  stat_smooth(method = 'lm')
+
+
+# multilevel linear model with two grouping variables
+# that are nested
+
+M_11 <- lmer(mathscore ~ ses + (ses|classid) + (ses|schoolid),
+             data = classroom_df)
+
+summary(M_11)
+
+M_12 <- lmer(mathscore ~ ses + (ses||classid) + (ses|schoolid),
+             data = classroom_df)
+
+M_13 <- lmer(mathscore ~ ses + ( 1 |classid) + (ses|schoolid),
+             data = classroom_df)
+
+M_14 <- lmer(mathscore ~ ses + ( 1 |classid) + (1 |schoolid),
+             data = classroom_df)
+
+M_14a <- lmer(mathscore ~ ses + (1 |schoolid/classid2),
+              data = classroom_df)
+
+M_14b <- lmer(mathscore ~ ses + (1|schoolid) + (1 |schoolid:classid2),
+              data = classroom_df)
+
+blp_df <- read_csv("https://raw.githubusercontent.com/mark-andrews/immr23/main/data/blp-short2.csv")
+
+
+
+blp_df <- mutate(blp_df, freq2 = as.numeric(scale(freq)))
+M_15 <- lmer(rt ~ freq2 + (freq2|participant) + (1|spelling), 
+             data = blp_df)
